@@ -3,204 +3,305 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Game</title>
+<title>Nexus Game - Neon Racing</title>
 
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  margin: 0;
   background: #080812;
   color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
 }
 
 header {
-  padding: 20px;
+  padding: 18px;
   background: #111122;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  color: #8b6cff;
-  font-size: 25px;
+  font-size: 24px;
   font-weight: bold;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
-}
-
-.hero {
-  text-align: center;
-  padding: 80px 20px;
-  background: radial-gradient(circle, #292052, #080812 70%);
-}
-
-.hero h1 {
-  font-size: 45px;
-}
-
-.hero span {
-  color: #8b6cff;
-}
-
-.hero p {
-  color: #aaa;
-  margin: 15px 0 25px;
-}
-
-.button {
-  display: inline-block;
-  background: #8b6cff;
-  color: white;
-  padding: 14px 25px;
-  border-radius: 10px;
-  text-decoration: none;
-}
-
-.games {
-  padding: 40px 20px;
-  max-width: 1100px;
-  margin: auto;
-}
-
-.games h2 {
-  margin-bottom: 20px;
-}
-
-.search {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 25px;
-  border-radius: 10px;
-  border: 1px solid #33335a;
-  background: #121222;
-  color: white;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.game {
-  background: #121222;
-  border: 1px solid #29294a;
+#game {
+  position: relative;
+  width: 360px;
+  max-width: 95vw;
+  height: 600px;
+  margin: 20px auto;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg,
+      #111 0 8%,
+      #252535 8% 10%,
+      #111 10% 90%,
+      #252535 90% 92%,
+      #111 92% 100%);
+  border: 3px solid #00eaff;
   border-radius: 15px;
-  padding: 20px;
+  box-shadow: 0 0 25px #00eaff;
 }
 
-.game:hover {
-  border-color: #8b6cff;
-  transform: translateY(-4px);
+.road-line {
+  position: absolute;
+  width: 6px;
+  height: 70px;
+  background: #ffffff;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: .8;
 }
 
-.icon {
-  font-size: 50px;
-  text-align: center;
-  padding: 25px;
-  background: #1b1935;
+.car {
+  position: absolute;
+  width: 50px;
+  height: 85px;
+  bottom: 30px;
+  left: 155px;
+  background: #ff1493;
+  border-radius: 12px 12px 8px 8px;
+  box-shadow: 0 0 20px #ff1493;
+  z-index: 5;
+}
+
+.car::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 32px;
+  background: #55eaff;
+  left: 10px;
+  top: 10px;
+  border-radius: 8px;
+}
+
+.car::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 20px;
+  background: #111;
+  left: -5px;
+  top: 20px;
+  box-shadow: 52px 0 #111, 0 45px #111, 52px 45px #111;
+}
+
+.enemy {
+  position: absolute;
+  width: 50px;
+  height: 80px;
+  background: #ff3030;
+  border-radius: 12px;
+  box-shadow: 0 0 18px #ff3030;
+  z-index: 4;
+}
+
+#score {
+  font-size: 22px;
+  margin: 10px;
+}
+
+#start {
+  padding: 12px 25px;
+  border: 0;
   border-radius: 10px;
-  margin-bottom: 15px;
+  background: #00eaff;
+  color: #001018;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.game p {
-  color: #999;
-  margin-top: 8px;
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 15px;
 }
 
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #777;
+.controls button {
+  width: 90px;
+  height: 55px;
+  border: 2px solid #00eaff;
+  border-radius: 12px;
+  background: #111122;
+  color: white;
+  font-size: 28px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">NEXUS GAME</div>
-  <nav>
-    <a href="#">Ana Sayfa</a>
-    <a href="#oyunlar">Oyunlar</a>
-  </nav>
-</header>
+<header>🏎️ NEXUS GAME — NEON RACING</header>
 
-<section class="hero">
-  <h1>Oyun dünyasına <span>bağlan.</span></h1>
-  <p>Nexus Game — yeni oyun merkeziniz.</p>
-  <a class="button" href="#oyunlar">Oyunları Keşfet</a>
-</section>
+<div id="score">Puan: 0</div>
 
-<section class="games" id="oyunlar">
-  <h2>🔥 Popüler Oyunlar</h2>
+<button id="start">OYUNU BAŞLAT</button>
 
-  <input
-    class="search"
-    id="search"
-    type="text"
-    placeholder="Oyun ara..."
-    onkeyup="searchGames()"
-  >
+<div id="game">
+  <div class="car" id="car"></div>
+</div>
 
-  <div class="grid">
-
-    <div class="game">
-      <div class="icon">⚔️</div>
-      <h3>Shadow Quest</h3>
-      <p>Aksiyon • Macera</p>
-    </div>
-
-    <div class="game">
-      <div class="icon">🚀</div>
-      <h3>Galaxy Wars</h3>
-      <p>Uzay • Strateji</p>
-    </div>
-
-    <div class="game">
-      <div class="icon">🏎️</div>
-      <h3>Neon Racing</h3>
-      <p>Yarış • Arcade</p>
-    </div>
-
-    <div class="game">
-      <div class="icon">🤖</div>
-      <h3>Cyber Bots</h3>
-      <p>Robot • Aksiyon</p>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  © 2026 Nexus Game
-</footer>
+<div class="controls">
+  <button id="left">⬅️</button>
+  <button id="right">➡️</button>
+</div>
 
 <script>
-function searchGames() {
-  let input = document.getElementById("search").value.toLowerCase();
-  let games = document.querySelectorAll(".game");
+const game = document.getElementById("game");
+const car = document.getElementById("car");
+const scoreText = document.getElementById("score");
+const startButton = document.getElementById("start");
 
-  games.forEach(function(game) {
-    let name = game.querySelector("h3").textContent.toLowerCase();
+let carX = 155;
+let score = 0;
+let running = false;
+let enemies = [];
+let speed = 4;
+let gameLoop;
 
-    if (name.includes(input)) {
-      game.style.display = "block";
-    } else {
-      game.style.display = "none";
+function createLines() {
+  for (let i = 0; i < 6; i++) {
+    const line = document.createElement("div");
+    line.className = "road-line";
+    line.style.top = (i * 120 - 70) + "px";
+    game.appendChild(line);
+  }
+}
+
+createLines();
+
+function moveLeft() {
+  if (!running) return;
+  carX -= 25;
+
+  if (carX < 20) {
+    carX = 20;
+  }
+
+  car.style.left = carX + "px";
+}
+
+function moveRight() {
+  if (!running) return;
+  carX += 25;
+
+  if (carX > 290) {
+    carX = 290;
+  }
+
+  car.style.left = carX + "px";
+}
+
+document.getElementById("left").addEventListener("click", moveLeft);
+document.getElementById("right").addEventListener("click", moveRight);
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "ArrowLeft") moveLeft();
+  if (e.key === "ArrowRight") moveRight();
+});
+
+function createEnemy() {
+  const enemy = document.createElement("div");
+  enemy.className = "enemy";
+
+  const x = Math.floor(Math.random() * 290) + 20;
+
+  enemy.style.left = x + "px";
+  enemy.style.top = "-90px";
+
+  game.appendChild(enemy);
+  enemies.push(enemy);
+}
+
+function collision(a, b) {
+  const r1 = a.getBoundingClientRect();
+  const r2 = b.getBoundingClientRect();
+
+  return !(
+    r1.right < r2.left ||
+    r1.left > r2.right ||
+    r1.bottom < r2.top ||
+    r1.top > r2.bottom
+  );
+}
+
+function endGame() {
+  running = false;
+  clearInterval(gameLoop);
+
+  alert("Oyun bitti! Puanın: " + score);
+
+  startButton.style.display = "inline-block";
+}
+
+function update() {
+  if (!running) return;
+
+  const lines = document.querySelectorAll(".road-line");
+
+  lines.forEach(line => {
+    let y = parseInt(line.style.top);
+    y += speed;
+
+    if (y > 600) {
+      y = -70;
+    }
+
+    line.style.top = y + "px";
+  });
+
+  enemies.forEach((enemy, index) => {
+    let y = parseInt(enemy.style.top);
+    y += speed;
+
+    enemy.style.top = y + "px";
+
+    if (collision(car, enemy)) {
+      endGame();
+    }
+
+    if (y > 620) {
+      enemy.remove();
+      enemies.splice(index, 1);
+      score++;
+      scoreText.textContent = "Puan: " + score;
+
+      if (score % 10 === 0) {
+        speed += 0.5;
+      }
     }
   });
 }
+
+function startGame() {
+  enemies.forEach(enemy => enemy.remove());
+  enemies = [];
+
+  score = 0;
+  speed = 4;
+  carX = 155;
+  car.style.left = carX + "px";
+
+  scoreText.textContent = "Puan: 0";
+  running = true;
+
+  startButton.style.display = "none";
+
+  clearInterval(gameLoop);
+
+  gameLoop = setInterval(update, 30);
+
+  setInterval(() => {
+    if (running) {
+      createEnemy();
+    }
+  }, 1200);
+}
+
+startButton.addEventListener("click", startGame);
 </script>
 
 </body>
