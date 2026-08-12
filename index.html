@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Game</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #080812;
+  color: white;
+}
+
+header {
+  padding: 20px;
+  background: #111122;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #8b6cff;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: radial-gradient(circle, #292052, #080812 70%);
+}
+
+.hero h1 {
+  font-size: 45px;
+}
+
+.hero span {
+  color: #8b6cff;
+}
+
+.hero p {
+  color: #aaa;
+  margin: 15px 0 25px;
+}
+
+.button {
+  display: inline-block;
+  background: #8b6cff;
+  color: white;
+  padding: 14px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.games {
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.games h2 {
+  margin-bottom: 20px;
+}
+
+.search {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  border: 1px solid #33335a;
+  background: #121222;
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.game {
+  background: #121222;
+  border: 1px solid #29294a;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.game:hover {
+  border-color: #8b6cff;
+  transform: translateY(-4px);
+}
+
+.icon {
+  font-size: 50px;
+  text-align: center;
+  padding: 25px;
+  background: #1b1935;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.game p {
+  color: #999;
+  margin-top: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">NEXUS GAME</div>
+  <nav>
+    <a href="#">Ana Sayfa</a>
+    <a href="#oyunlar">Oyunlar</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Oyun dünyasına <span>bağlan.</span></h1>
+  <p>Nexus Game — yeni oyun merkeziniz.</p>
+  <a class="button" href="#oyunlar">Oyunları Keşfet</a>
+</section>
+
+<section class="games" id="oyunlar">
+  <h2>🔥 Popüler Oyunlar</h2>
+
+  <input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="Oyun ara..."
+    onkeyup="searchGames()"
+  >
+
+  <div class="grid">
+
+    <div class="game">
+      <div class="icon">⚔️</div>
+      <h3>Shadow Quest</h3>
+      <p>Aksiyon • Macera</p>
+    </div>
+
+    <div class="game">
+      <div class="icon">🚀</div>
+      <h3>Galaxy Wars</h3>
+      <p>Uzay • Strateji</p>
+    </div>
+
+    <div class="game">
+      <div class="icon">🏎️</div>
+      <h3>Neon Racing</h3>
+      <p>Yarış • Arcade</p>
+    </div>
+
+    <div class="game">
+      <div class="icon">🤖</div>
+      <h3>Cyber Bots</h3>
+      <p>Robot • Aksiyon</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Nexus Game
+</footer>
+
+<script>
+function searchGames() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let games = document.querySelectorAll(".game");
+
+  games.forEach(function(game) {
+    let name = game.querySelector("h3").textContent.toLowerCase();
+
+    if (name.includes(input)) {
+      game.style.display = "block";
+    } else {
+      game.style.display = "none";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
